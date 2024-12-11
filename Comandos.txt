@@ -1,3 +1,13 @@
+Configuración Kafka
+
+server.properties
+Cambiar la propiedad log.dirs por una ruta de windosw. Ej.:
+	> log.dirs=C:/Kafka/kafka-logs
+
+zookeeper.properties
+Cambiar la propiedad dataDir por la ruta de la instalación. EJ.:
+	>dataDir=C:/Kafka/zookeeper-data
+
 ▶️ Iniciar Zookeeper
 .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
 
@@ -18,3 +28,7 @@
 
 ▶️ Inicia una consola para enviar mensajes a un topic específico
 .\bin\windows\kafka-console-producer.bat --broker-list {host}:9092 --topic {topic-name}
+
+
+Fuente:
+https://www.youtube.com/watch?v=UbbyW5Z1lv8
