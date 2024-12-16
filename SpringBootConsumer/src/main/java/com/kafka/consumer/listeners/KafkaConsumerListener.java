@@ -1,17 +1,26 @@
 package com.kafka.consumer.listeners;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.KafkaListener;
 
+import com.kafka.consumer.entity.EmpleadoDTO;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Configuration
 public class KafkaConsumerListener {
 	
-	private Logger LOGGER = LoggerFactory.getLogger(getClass());
-	
 	@KafkaListener(topics = {"unProgramadorName-Topic"}, groupId = "my-group-id")
 	public void listener(String mensaje) {
-		LOGGER.info("Mensaje Recibido, el mensaje es: " + mensaje);
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			log.info("Mensaje Recibido, el mensaje es: " + mensaje);
+			EmpleadoDTO empleadoDTO = objectMapper.readValue(mensaje, EmpleadoDTO.class);
+			log.info("Objeto: " + empleadoDTO.toString());
+		}catch (Exception e) {
+			log.error("Se genero un error: " + e);
+		}
 	}
 }
